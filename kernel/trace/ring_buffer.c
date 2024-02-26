@@ -534,7 +534,7 @@ static void rb_wake_up_waiters(struct irq_work *work)
  */
 int ring_buffer_wait(struct ring_buffer *buffer, int cpu, bool full)
 {
-	struct ring_buffer_per_cpu *uninitialized_var(cpu_buffer);
+	struct ring_buffer_per_cpu *cpu_buffer;
 	DEFINE_WAIT(wait);
 	struct rb_irq_work *work;
 	int ret = 0;
@@ -1286,6 +1286,8 @@ static void rb_free_cpu_buffer(struct ring_buffer_per_cpu *cpu_buffer)
 		bpage = list_entry(head, struct buffer_page, list);
 		free_buffer_page(bpage);
 	}
+
+	free_page((unsigned long)cpu_buffer->free_page);
 
 	kfree(cpu_buffer);
 }
