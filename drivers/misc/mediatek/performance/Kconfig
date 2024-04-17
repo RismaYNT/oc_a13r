@@ -70,6 +70,7 @@ config MTK_EARA_THERMAL
 config MTK_EARA_AI
 	bool "MTK EARA_AI support"
 	depends on MTK_FPSGO_V3
+        depends on MTK_PERFMGR_TOUCH_BOOST
 	default n
 	help
 	  MTK_EARA_AI is the kernel config of EARA_AI mechanism.
